@@ -3,14 +3,15 @@ require.config({
   paths: { //配置加载路径
     QW: 'libs/qwrap/qwrap-youa-debug',
     text: 'libs/require/text', //requirejs的一个文本插件
-    Person: "models/Person",
+    MyPath: "models/MyPath",
     MyPoint: 'models/MyPoint',
     MyRoute: 'models/MyRoute'
   }
   // waitSeconds: 10
 });
 
-require(['Person', 'MyPoint', 'MyRoute'], function(Person, MyPoint, MyRoute) {
+require(['MyPath', 'MyPoint', 'MyRoute'], function(MyPath, MyPoint, MyRoute) {
+  //
   var map = new BMap.Map("map");
   //the center point
   var point = new BMap.Point(119.376414, 25.725794);
@@ -29,31 +30,28 @@ require(['Person', 'MyPoint', 'MyRoute'], function(Person, MyPoint, MyRoute) {
   });
   map.addControl(navigationControl);
 
-  var persons = [];
+  var paths = [];
   var input = document.getElementById("input").value;
   var line = input.split('\n');
 
-  for (var i = 0, person = Person.create_new(map); i < line.length; i++) {
-    if (line == "@") { //"@"  means a new person
-      persons.push(person);
-      person.show_route();
-      person = Person.create_new(map);
+  for (var i = 0, path = MyPath.create_new(map); i < line.length; i++) {
+    if (line[i].indexOf("@") > 0) { //"@"  means a new Path
+      paths.push(path);
+      path.show_route();
+      path = MyPath.create_new(map);
       continue;
     }
     //set point
     var pt = new BMap.Point(line[i].split(' ')[0].split(',')[0], line[i].split(' ')[0].split(',')[1]);
-    //set arrival time
     var arrival = line[i].split(' ')[1];
-    //package into myPoint
     var point = MyPoint.create_new(map, pt, arrival);
     point.add_info("到达时间：" + point.arrival + "秒", 0, 0);
     point.add_info(i + 1, 0, -20);
-    person.add_point(point);
+    //add it  into path
+    path.add_point(point);
   }
-  console.log(persons);
+
   /*mark the start point and the end point*/
   // map.points[0].mark("start");
   // map.points[map.points_size].mark("end");
-
-
 });

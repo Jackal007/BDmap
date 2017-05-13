@@ -1,22 +1,34 @@
-define(['Person', 'MyPoint'], function(Person, MyPoint) {
+define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
 
   var create_new = function(map, startPoint, endPoint) {
+    console.log("create MyRoute start: " + startPointpoint + " end: " + endPoint);
+    /**
+     * a segment
+     */
 
     var MyRoute = {};
+    //show on this map
     MyRoute.map = map;
+    //start point [MyPoint]
     MyRoute.startPoint = startPoint;
+    //end point [MyPoint]
     MyRoute.endPoint = endPoint;
+    //how much spend on this route
     MyRoute.duration = 0;
+    //
     MyRoute.distance = 0
+    //all the BaiduMap points that form this route
     MyRoute.path = {};
-    MyRoute.velocity = 0;
+    //
+    Myoute.velocity = 0;
+    //
     MyRoute.info = "";
 
+    /*add info the the mid point of this route*/
     MyRoute.add_info = function(info, offsetX, offsetY) {
+      console.log("add info to  route " + " with " + info);
       var p_len = MyRoute.path.length;
       var point = MyRoute.path[parseInt(p_len / 2)];
-      console.log(MyRoute.path[1]);
-      console.log(MyRoute.startPoint.point);
       var opts = {
         position: point,
         offset: new BMap.Size(offsetX, offsetY)
@@ -26,8 +38,9 @@ define(['Person', 'MyPoint'], function(Person, MyPoint) {
     }
 
     MyRoute.show = function() {
-      //get distance ``
-      MyRoute.getDistance();
+      console.log("show route  start: " + startPointpoint);
+      //get distance
+      MyRoute.get_distance();
       setTimeout(function() {
         console.log("distance:" + MyRoute.distance);
         //get time
@@ -50,12 +63,14 @@ define(['Person', 'MyPoint'], function(Person, MyPoint) {
           strokeColor: color,
           enableClicking: false
         }));
-        MyRoute.add_info("长度：" + MyRoute.distance / 1000 + "km", 0, 0);
+        MyRoute.add_info("距离：" + MyRoute.distance / 1000 + "km", 0, 0);
         MyRoute.add_info("速度：" + MyRoute.velocity + "km/h", 0, 20);
       }, 1000);
     }
 
-    MyRoute.getDistance = function() {
+    /*get the distance of this route*/
+    MyRoute.get_distance = function() {
+      console.log("get distance");
       var transit = new BMap.DrivingRoute(MyRoute.map, {
         // renderOptions: {
         //   map: MyRoute.map
