@@ -1,7 +1,7 @@
 define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
 
   var create_new = function(map, startPoint, endPoint) {
-    console.log("create MyRoute start: " + startPointpoint + " end: " + endPoint);
+    console.log("create MyRoute start: " + startPoint + " end: " + endPoint);
     /**
      * a segment
      */
@@ -20,7 +20,7 @@ define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
     //all the BaiduMap points that form this route
     MyRoute.path = {};
     //
-    Myoute.velocity = 0;
+    MyRoute.velocity = 0;
     //
     MyRoute.info = "";
 
@@ -38,7 +38,7 @@ define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
     }
 
     MyRoute.show = function() {
-      console.log("show route  start: " + startPointpoint);
+      console.log("show route  start: " + startPoint);
       //get distance
       MyRoute.get_distance();
       setTimeout(function() {
@@ -64,7 +64,7 @@ define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
           enableClicking: false
         }));
         MyRoute.add_info("距离：" + MyRoute.distance / 1000 + "km", 0, 0);
-        MyRoute.add_info("速度：" + MyRoute.velocity + "km/h", 0, 20);
+        MyRoute.add_info("速度：" + (MyRoute.velocity).toFixed(2) + "km/h", 0, 20);
       }, 1000);
     }
 

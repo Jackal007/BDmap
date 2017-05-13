@@ -34,11 +34,12 @@ require(['MyPath', 'MyPoint', 'MyRoute'], function(MyPath, MyPoint, MyRoute) {
   var input = document.getElementById("input").value;
   var line = input.split('\n');
 
-  for (var i = 0, path = MyPath.create_new(map); i < line.length; i++) {
-    if (line[i].indexOf("@") > 0) { //"@"  means a new Path
+  for (var i = 0, n = 0, path = MyPath.create_new(map); i < line.length; i++, n++) {
+    if (line[i] == "@") { //"@"  means a new Path
       paths.push(path);
       path.show_route();
       path = MyPath.create_new(map);
+      n = -1;
       continue;
     }
     //set point
@@ -46,7 +47,7 @@ require(['MyPath', 'MyPoint', 'MyRoute'], function(MyPath, MyPoint, MyRoute) {
     var arrival = line[i].split(' ')[1];
     var point = MyPoint.create_new(map, pt, arrival);
     point.add_info("到达时间：" + point.arrival + "秒", 0, 0);
-    point.add_info(i + 1, 0, -20);
+    point.add_info(n + 1, 0, -20);
     //add it  into path
     path.add_point(point);
   }
