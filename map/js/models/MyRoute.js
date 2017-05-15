@@ -63,8 +63,9 @@ define(['MyPath', 'MyPoint'], function(MyPath, MyPoint) {
           strokeColor: color,
           enableClicking: false
         }));
-        MyRoute.add_info("距离：" + MyRoute.distance / 1000 + "km", 0, 0);
-        MyRoute.add_info("速度：" + (MyRoute.velocity).toFixed(2) + "km/h", 0, 20);
+        MyRoute.add_info("距离：" + (MyRoute.distance / 1000).toFixed(2) + "km", 0, 0);
+        MyRoute.add_info("用时：" + (MyRoute.duration / 3600).toFixed(2) + "h", 0, 20);
+        MyRoute.add_info("速度：" + (MyRoute.velocity).toFixed(2) + "km/h", 0, 40);
       }, 1000);
     }
 

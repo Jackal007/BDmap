@@ -16,7 +16,7 @@ require(['MyPath', 'MyPoint', 'MyRoute'], function(MyPath, MyPoint, MyRoute) {
   //the center point
   var point = new BMap.Point(119.376414, 25.725794);
   //config the map
-  map.centerAndZoom(point, 15);
+  map.centerAndZoom(point, 10);
   map.enableScrollWheelZoom(true);
   map.enableDragging();
   // 添加带有定位的导航控件
@@ -46,7 +46,6 @@ require(['MyPath', 'MyPoint', 'MyRoute'], function(MyPath, MyPoint, MyRoute) {
     var pt = new BMap.Point(line[i].split(' ')[0].split(',')[0], line[i].split(' ')[0].split(',')[1]);
     var arrival = line[i].split(' ')[1];
     var point = MyPoint.create_new(map, pt, arrival);
-    point.add_info("到达时间：" + point.arrival + "秒", 0, 0);
     point.add_info(n + 1, 0, -20);
     //add it  into path
     path.add_point(point);
